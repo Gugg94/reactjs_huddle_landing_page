@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { ThemeProvider, Global } from "@emotion/react";
+import GlobalStyle from "./styles/GlobalStyles";
+import Themes from "./styles/Themes";
+import Header from "./components/ExampleStylingHeader";
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <ThemeProvider theme={isDark ? Themes.DarkTheme : Themes.LightTheme}>
+      <div>
+        <Global styles={GlobalStyle} />
+        <Header title="Hello World" />
+        <button
+          onClick={() => {
+            setIsDark(!isDark);
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          Change theme
+        </button>
+      </div>
+    </ThemeProvider>
   );
 }
 
