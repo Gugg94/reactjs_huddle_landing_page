@@ -1,24 +1,26 @@
-import { useState } from "react";
 import { ThemeProvider, Global } from "@emotion/react";
-import GlobalStyle from "./styles/GlobalStyles";
-import Themes from "./styles/Themes";
-import Header from "./components/ExampleStylingHeader";
+import GlobalStyle from "./global/GlobalStyles";
+import Themes from "./global/Themes";
+import Header from "./components/Header";
+import Container from "./components/Container";
+import CardContent from "./content/CardsContent";
+import Card from "./components/Card";
+import Footer from "./components/Footer";
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-
   return (
-    <ThemeProvider theme={isDark ? Themes.DarkTheme : Themes.LightTheme}>
+    <ThemeProvider theme={Themes.LightTheme}>
       <div>
         <Global styles={GlobalStyle} />
-        <Header title="Hello World" />
-        <button
-          onClick={() => {
-            setIsDark(!isDark);
-          }}
-        >
-          Change theme
-        </button>
+        <Header />
+        <section>
+          <Container>
+            {CardContent.map((item, index) => (
+              <Card key={index} item={item} />
+            ))}
+          </Container>
+        </section>
+        <Footer />
       </div>
     </ThemeProvider>
   );
